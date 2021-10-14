@@ -7,7 +7,7 @@ CLICK_RETRY = 3
 
 
 class BasePage:
-    locator = BasePageLocators
+    locators = BasePageLocators
 
     def __init__(self, driver):
         self.driver = driver
@@ -26,7 +26,7 @@ class BasePage:
         for q in query:
             search.send_keys(q)
 
-    def click(self, locator, timeout):
+    def click(self, locator, timeout=None):
         for i in range(CLICK_RETRY):
             try:
                 elem = self.find(locator, timeout=timeout)
