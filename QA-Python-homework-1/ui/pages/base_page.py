@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import ElementClickInterceptedException
 
-CLICK_RETRY = 3
+CLICK_RETRY = 15
 
 
 class BasePage:
@@ -15,7 +15,7 @@ class BasePage:
 
     def wait(self, timeout=None):
         if timeout is None:
-            timeout = 5
+            timeout = 15
         return WebDriverWait(self.driver, timeout=timeout)
 
     def find(self, locator, timeout=None):
