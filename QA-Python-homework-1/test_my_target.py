@@ -1,5 +1,6 @@
 import pytest
 from base import BaseCase
+from ui.locators.main_locators import MainPageLocators
 
 
 class Test(BaseCase):
@@ -7,11 +8,9 @@ class Test(BaseCase):
     def login(self):
         self.login_page.login()
 
-    @pytest.mark.skip
     def test_login(self, login):
         assert self.driver.current_url == 'https://target.my.com/dashboard'
 
-    @pytest.mark.skip
     def test_logout(self, login):
         self.main_page.logout()
         assert self.driver.current_url == 'https://target.my.com/'
@@ -23,3 +22,18 @@ class Test(BaseCase):
             'value')
         assert full_name == changed_full_name
         assert contact_phone_number == changed_contact_phone_number
+
+    @pytest.mark.parametrize(
+        'page_locator, item_locator',
+        [
+            pytest.param(
+                MainPageLocators.PROFILE_LOCATOR, MainPageLocators.PROFILE_SETTINGS_LOCATOR
+            ),
+            pytest.param(
+                MainPageLocators.AUDIENCES_LOCATOR, MainPageLocators.AUDIENCE_SEGMENTS_LOCATOR
+            )
+        ]
+    )
+    def test_go_to_page(self, page_locator, item_locator, login):
+        self.main_page.click(page_locator)
+        assert self.main_page.find(item_locator).is_displayed()

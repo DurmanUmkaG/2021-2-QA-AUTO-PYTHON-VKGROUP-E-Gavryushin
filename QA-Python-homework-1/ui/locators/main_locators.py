@@ -9,3 +9,6 @@ class MainPageLocators:
     PHONE_NUMBER_LOCATOR = (By.XPATH, '//input[@class="input__inp js-form-element" and @maxlength="20"]')
     SAVE_BUTTON_LOCATOR = (By.XPATH, '//div[contains(text(), "Save")]')
     SAVE_NOTIFICATION_LOCATOR = (By.XPATH, '//div[contains(text(), "Information saved successfully")]')
+    AUDIENCES_LOCATOR = (By.XPATH, '//a[contains(text(), "Audiences")]')
+    AUDIENCE_SEGMENTS_LOCATOR = (By.XPATH, '//span[contains(text(), "Audience segments")]')
+    PROFILE_SETTINGS_LOCATOR = (By.XPATH, '//span[contains(text(), "Profile settings")]')
