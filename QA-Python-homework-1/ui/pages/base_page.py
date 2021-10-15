@@ -2,6 +2,7 @@ from ui.locators.basic_locators import BasePageLocators
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import ElementClickInterceptedException
 
 CLICK_RETRY = 3
 
@@ -33,6 +34,6 @@ class BasePage:
                 elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
                 elem.click()
                 return
-            except StaleElementReferenceException:
+            except (StaleElementReferenceException, ElementClickInterceptedException):
                 if i == CLICK_RETRY - 1:
                     raise
