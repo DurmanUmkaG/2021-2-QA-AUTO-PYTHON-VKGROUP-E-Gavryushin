@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import ElementClickInterceptedException
 
-CLICK_RETRY = 15
+CLICK_RETRY = 3
 
 
 class BasePage:
@@ -15,7 +15,7 @@ class BasePage:
 
     def wait(self, timeout=None):
         if timeout is None:
-            timeout = 15
+            timeout = 5
         return WebDriverWait(self.driver, timeout=timeout)
 
     def find(self, locator, timeout=None):
@@ -30,6 +30,7 @@ class BasePage:
     def click(self, locator, timeout=None):
         for i in range(CLICK_RETRY):
             try:
+                self.wait(timeout).until(EC.invisibility_of_element_located(BasePageLocators.SPINNER_LOCATOR))
                 elem = self.find(locator, timeout=timeout)
                 elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
                 elem.click()

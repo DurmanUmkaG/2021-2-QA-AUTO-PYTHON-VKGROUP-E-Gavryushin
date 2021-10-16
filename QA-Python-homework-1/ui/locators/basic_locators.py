@@ -1,2 +1,5 @@
+from selenium.webdriver.common.by import By
+
+
 class BasePageLocators:
-    pass
+    SPINNER_LOCATOR = (By.XPATH, 'div[contains(@class, "spinner")]')
