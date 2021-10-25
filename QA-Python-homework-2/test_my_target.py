@@ -1,10 +1,19 @@
+import pytest
+from selenium.webdriver.common.by import By
+
 from base import BaseCase
 import random
 
 from ui.pages.login_error_page import LoginErrorPage
+from ui.pages.main_page import MainPage
 
 
 class Test(BaseCase):
+
+    @pytest.fixture(scope='function')
+    def login(self):
+        self.login_page.login()
+        return MainPage(self.driver)
 
     def test_wrong_password(self):
         self.login_page.login(
