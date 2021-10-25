@@ -4,6 +4,13 @@ import pytest
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 
+from ui.pages.base_page import BasePage
+
+
+@pytest.fixture
+def base_page(driver):
+    return BasePage(driver)
+
 
 @pytest.fixture(scope='function')
 def driver(config):
