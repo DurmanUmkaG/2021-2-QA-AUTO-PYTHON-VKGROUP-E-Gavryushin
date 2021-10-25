@@ -1,6 +1,7 @@
 import pytest
 
 from ui.pages.base_page import BasePage
+from ui.pages.login_page import LoginPage
 
 
 class BaseCase:
@@ -13,3 +14,4 @@ class BaseCase:
         self.config = config
 
         self.base_page: BasePage = request.getfixturevalue('base_page')
+        self.login_page: LoginPage = request.getfixturevalue('login_page')
