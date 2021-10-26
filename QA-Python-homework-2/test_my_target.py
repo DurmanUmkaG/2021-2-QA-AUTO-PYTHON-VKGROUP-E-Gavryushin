@@ -1,5 +1,4 @@
 import pytest
-from selenium.webdriver.common.by import By
 
 from base import BaseCase
 import random
@@ -31,3 +30,14 @@ class Test(BaseCase):
         )
         login_error_page = LoginErrorPage(self.driver)
         assert login_error_page.find(login_error_page.locators.ERROR_MESSAGE_LOCATOR).is_displayed()
+
+    def test_create_campaign(self, login, repo_root):
+        main_page = login
+        campaign_creation_page = main_page.click_create_campaign()
+        campaign_name = campaign_creation_page.create_campaign(repo_root)
+        assert main_page.find(
+            (
+                main_page.locators.CAMPAIGN_NAME_TEMPLATE[0],
+                main_page.locators.CAMPAIGN_NAME_TEMPLATE[1].format(campaign_name)
+            )
+        )

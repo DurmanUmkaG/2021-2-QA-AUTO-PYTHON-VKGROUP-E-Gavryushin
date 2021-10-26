@@ -11,3 +11,5 @@ class MainPageLocators:
         By.XPATH,
         '//a[@href="/campaign/new"]'
     )
+
+    CAMPAIGN_NAME_TEMPLATE = (By.XPATH, '//a[@title="{}"]')
