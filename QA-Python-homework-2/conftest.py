@@ -1,3 +1,5 @@
+import os.path
+
 from ui.fixtures import *
 import pytest
 
@@ -10,3 +12,8 @@ def pytest_addoption(parser):
 def config(request):
     url = request.config.getoption('--url')
     return {'url': url}
+
+
+@pytest.fixture(scope='session')
+def repo_root():
+    return os.path.abspath(os.path.join(__file__, os.path.pardir))
