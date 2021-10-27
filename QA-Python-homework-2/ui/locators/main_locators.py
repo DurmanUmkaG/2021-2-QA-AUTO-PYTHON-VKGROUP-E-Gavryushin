@@ -13,3 +13,5 @@ class MainPageLocators:
     )
 
     CAMPAIGN_NAME_TEMPLATE = (By.XPATH, '//a[@title="{}"]')
+
+    AUDIENCES_LOCATOR = (By.XPATH, '//a[@href="/segments"]')
