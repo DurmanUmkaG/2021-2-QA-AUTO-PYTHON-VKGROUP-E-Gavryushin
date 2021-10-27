@@ -21,7 +21,7 @@ class BasePage:
 
     def wait(self, timeout=None):
         if timeout is None:
-            timeout = 5
+            timeout = 10
         return WebDriverWait(self.driver, timeout=timeout)
 
     def find(self, locator, timeout=None):

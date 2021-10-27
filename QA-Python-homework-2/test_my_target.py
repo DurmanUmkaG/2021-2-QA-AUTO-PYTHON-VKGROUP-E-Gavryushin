@@ -49,3 +49,8 @@ class Test(BaseCase):
             audiences_page.locators.SEGMENT_IN_LIST_TEMPLATE[0],
             audiences_page.locators.SEGMENT_IN_LIST_TEMPLATE[1].format(segment_name)
         )).is_displayed()
+
+    def test_delete_segment(self, login):
+        main_page = login
+        audiences_page = main_page.go_to_audiences_page()
+        assert audiences_page.is_segment_deleted()

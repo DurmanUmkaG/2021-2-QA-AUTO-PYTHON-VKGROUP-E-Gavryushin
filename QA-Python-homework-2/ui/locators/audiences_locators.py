@@ -40,5 +40,20 @@ class AudiencesLocators:
 
     SEGMENT_IN_LIST_TEMPLATE = (
         By.XPATH,
-        '//a[@title="{}"]'
+        '//div[./a[@title="{}"]]/..'
+    )
+
+    DELETE_SEGMENT_TEMPLATE = (
+        By.XPATH,
+        '//div[@data-row-id="{}"]/span'
+    )
+
+    DELETE_BUTTON = (
+        By.XPATH,
+        '//button[@class="button button_confirm-remove button_general"]'
+    )
+
+    DELETE_MESSAGE_LOCATOR = (
+        By.CLASS_NAME,
+        'modal-view__body__placeholder'
     )
