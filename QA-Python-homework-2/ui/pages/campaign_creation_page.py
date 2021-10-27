@@ -2,16 +2,11 @@ import os.path
 
 from ui.locators.campaign_creation_locators import CampaignCreationLocators
 from ui.pages.base_page import BasePage
-import random
 from selenium.webdriver.support import expected_conditions as EC
 
 
 class CampaignCreationPage(BasePage):
     locators = CampaignCreationLocators
-
-    @staticmethod
-    def create_random_str():
-        return ''.join([chr(random.randint(97, 122)) for _ in range(7)])
 
     def fill_url(self):
         self.send_keys(

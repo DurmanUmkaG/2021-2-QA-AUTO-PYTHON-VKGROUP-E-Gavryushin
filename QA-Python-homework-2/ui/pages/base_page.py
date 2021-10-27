@@ -3,6 +3,7 @@ from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import ElementClickInterceptedException
+import random
 
 CLICK_RETRY = 3
 
@@ -13,6 +14,10 @@ class BasePage:
     def __init__(self, driver):
         self.driver = driver
         self.is_opened()
+
+    @staticmethod
+    def create_random_str():
+        return ''.join([chr(random.randint(97, 122)) for _ in range(7)])
 
     def wait(self, timeout=None):
         if timeout is None:
