@@ -18,4 +18,4 @@ class MainPage(BasePage):
 
     def go_to_audiences_page(self):
         self.click(self.locators.AUDIENCES_LOCATOR)
-        return AudiencesPage
+        return AudiencesPage(self.driver)
