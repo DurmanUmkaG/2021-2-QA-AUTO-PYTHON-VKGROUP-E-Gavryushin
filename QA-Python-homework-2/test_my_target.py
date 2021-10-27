@@ -13,6 +13,7 @@ class Test(BaseCase):
         self.login_page.login()
         return MainPage(self.driver)
 
+    @pytest.mark.UI
     def test_wrong_password(self):
         self.login_page.login(
             password=self.base_page.create_random_str()
@@ -20,6 +21,7 @@ class Test(BaseCase):
         login_error_page = LoginErrorPage(self.driver)
         assert login_error_page.find(login_error_page.locators.ERROR_MESSAGE_LOCATOR).is_displayed()
 
+    @pytest.mark.UI
     def test_wrong_user_name(self):
         self.login_page.login(
             user_name=self.base_page.create_random_str() +
@@ -30,6 +32,7 @@ class Test(BaseCase):
         login_error_page = LoginErrorPage(self.driver)
         assert login_error_page.find(login_error_page.locators.ERROR_MESSAGE_LOCATOR).is_displayed()
 
+    @pytest.mark.UI
     def test_create_campaign(self, login, repo_root):
         main_page = login
         campaign_creation_page = main_page.click_create_campaign()
@@ -41,6 +44,7 @@ class Test(BaseCase):
             )
         )
 
+    @pytest.mark.UI
     def test_create_segment(self, login):
         main_page = login
         audiences_page = main_page.go_to_audiences_page()
@@ -50,6 +54,7 @@ class Test(BaseCase):
             audiences_page.locators.SEGMENT_IN_LIST_TEMPLATE[1].format(segment_name)
         )).is_displayed()
 
+    @pytest.mark.UI
     def test_delete_segment(self, login):
         main_page = login
         audiences_page = main_page.go_to_audiences_page()
