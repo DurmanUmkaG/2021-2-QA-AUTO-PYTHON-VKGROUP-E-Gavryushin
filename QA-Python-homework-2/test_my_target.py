@@ -40,3 +40,12 @@ class Test(BaseCase):
                 main_page.locators.CAMPAIGN_NAME_TEMPLATE[1].format(campaign_name)
             )
         )
+
+    def test_create_segment(self, login):
+        main_page = login
+        audiences_page = main_page.go_to_audiences_page()
+        segment_name = audiences_page.create_segment()
+        assert audiences_page.find((
+            audiences_page.locators.SEGMENT_IN_LIST_TEMPLATE[0],
+            audiences_page.locators.SEGMENT_IN_LIST_TEMPLATE[1].format(segment_name)
+        )).is_displayed()
