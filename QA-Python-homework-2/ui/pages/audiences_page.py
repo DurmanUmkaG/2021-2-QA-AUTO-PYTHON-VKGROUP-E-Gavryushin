@@ -1,5 +1,6 @@
 import time
 
+import allure
 from selenium.common.exceptions import TimeoutException
 
 from ui.locators.audiences_locators import AudiencesLocators
@@ -10,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class AudiencesPage(BasePage):
     locators = AudiencesLocators
 
+    @allure.step('Creating new segment')
     def create_segment(self):
         try:
             self.click(self.locators.CREATE_NEW)
@@ -31,7 +33,10 @@ class AudiencesPage(BasePage):
 
         return segment_name
 
+    @allure.step('Deleting segment')
     def delete_segment(self):
+        self.logger.info('Deleting segment')
+
         segment_name = self.create_segment()
 
         data_row_id = self.find(

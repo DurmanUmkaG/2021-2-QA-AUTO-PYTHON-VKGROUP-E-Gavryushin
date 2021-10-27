@@ -1,3 +1,7 @@
+import logging
+
+import allure
+
 from ui.locators.basic_locators import BasePageLocators
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,6 +17,7 @@ class BasePage:
 
     def __init__(self, driver):
         self.driver = driver
+        self.logger = logging.getLogger('test')
         self.is_opened()
 
     @staticmethod
@@ -33,7 +38,9 @@ class BasePage:
         for q in query:
             search.send_keys(q)
 
+    @allure.step('Clicking on {locator}')
     def click(self, locator, timeout=None):
+        self.logger.info(f'Clicking on {locator}')
         for i in range(CLICK_RETRY):
             try:
                 self.find(locator, timeout=timeout)

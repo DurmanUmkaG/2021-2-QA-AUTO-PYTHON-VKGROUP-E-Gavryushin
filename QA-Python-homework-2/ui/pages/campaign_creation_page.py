@@ -1,5 +1,7 @@
 import os.path
 
+import allure
+
 from ui.locators.campaign_creation_locators import CampaignCreationLocators
 from ui.pages.base_page import BasePage
 from selenium.webdriver.support import expected_conditions as EC
@@ -26,6 +28,7 @@ class CampaignCreationPage(BasePage):
         file = os.path.join(repo_root, 'files', 'image.jpg')
         self.find(self.locators.UPLOAD_IMAGE_BUTTON).send_keys(file)
 
+    @allure.step('Creating new campaign')
     def create_campaign(self, repo_root):
         self.click(self.locators.TRAFFIC_BUTTON)
         self.fill_url()

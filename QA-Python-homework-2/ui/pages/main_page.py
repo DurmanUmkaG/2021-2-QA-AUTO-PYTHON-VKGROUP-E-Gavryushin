@@ -1,3 +1,4 @@
+import allure
 from selenium.common.exceptions import TimeoutException
 
 from ui.locators.main_locators import MainPageLocators
@@ -16,6 +17,7 @@ class MainPage(BasePage):
             self.click(self.locators.CREATE_CAMPAIGN_BUTTON)
         return CampaignCreationPage(self.driver)
 
+    @allure.step('Going to audiences_page')
     def go_to_audiences_page(self):
         self.click(self.locators.AUDIENCES_LOCATOR)
         return AudiencesPage(self.driver)
