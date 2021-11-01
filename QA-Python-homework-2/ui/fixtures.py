@@ -6,6 +6,7 @@ from selenium import webdriver
 
 from ui.pages.base_page import BasePage
 from ui.pages.login_page import LoginPage
+from ui.pages.main_page import MainPage
 
 
 @pytest.fixture
@@ -27,3 +28,8 @@ def driver(config):
     browser.get(url)
     yield browser
     browser.quit()
+
+@pytest.fixture(scope='function')
+def main_page(driver):
+    LoginPage(driver).login()
+    return MainPage(driver)

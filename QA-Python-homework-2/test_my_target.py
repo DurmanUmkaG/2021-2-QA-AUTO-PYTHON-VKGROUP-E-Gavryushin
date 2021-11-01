@@ -4,15 +4,9 @@ import pytest
 from base import BaseCase
 
 from ui.pages.login_error_page import LoginErrorPage
-from ui.pages.main_page import MainPage
 
 
 class Test(BaseCase):
-
-    @pytest.fixture(scope='function')
-    def login(self):
-        self.login_page.login()
-        return MainPage(self.driver)
 
     @allure.epic('All tests')
     @allure.feature('UI test')
@@ -46,8 +40,7 @@ class Test(BaseCase):
     @allure.story('Test create campaign')
     @allure.description("""Test for creating an advertising campaign of any type and check that it is created""")
     @pytest.mark.UI
-    def test_create_campaign(self, login, repo_root):
-        main_page = login
+    def test_create_campaign(self, main_page, repo_root):
         campaign_creation_page = main_page.click_create_campaign()
 
         self.logger.info('Creating new campaign')
@@ -65,9 +58,7 @@ class Test(BaseCase):
     @allure.story('Test create segment')
     @allure.description("""Test to create a segment in audiences and check that the segment is created""")
     @pytest.mark.UI
-    def test_create_segment(self, login):
-        main_page = login
-
+    def test_create_segment(self, main_page):
         self.logger.info('Going to audiences_page')
         with allure.step('Going to audiences page'):
             audiences_page = main_page.go_to_audiences_page()
@@ -86,9 +77,7 @@ class Test(BaseCase):
     @allure.story('Test delete segment')
     @allure.description("""Test to delete a segment in audiences and check that the segment is deleted""")
     @pytest.mark.UI
-    def test_delete_segment(self, login):
-        main_page = login
-
+    def test_delete_segment(self, main_page):
         self.logger.info('Going to audiences_page')
         with allure.step('Going to audiences page'):
             audiences_page = main_page.go_to_audiences_page()
