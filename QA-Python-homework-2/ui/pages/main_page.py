@@ -10,6 +10,7 @@ from ui.pages.campaign_creation_page import CampaignCreationPage
 class MainPage(BasePage):
     locators = MainPageLocators
 
+    @allure.step('Going to campaign_creation_page')
     def click_create_campaign(self):
         try:
             self.click(self.locators.CREATE_CAMPAIGN_NEW_USER)

@@ -12,6 +12,6 @@ class MainPageLocators:
         '//a[@href="/campaign/new"]'
     )
 
-    CAMPAIGN_NAME_TEMPLATE = (By.XPATH, '//a[@title="{}"]')
+    CAMPAIGN_NAME_TEMPLATE = lambda x:(By.XPATH, f'//a[@title="{x}"]')
 
     AUDIENCES_LOCATOR = (By.XPATH, '//a[@href="/segments"]')

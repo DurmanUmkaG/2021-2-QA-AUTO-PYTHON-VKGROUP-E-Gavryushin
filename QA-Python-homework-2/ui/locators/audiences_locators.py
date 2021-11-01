@@ -7,13 +7,9 @@ class AudiencesLocators:
 
     # Использую 2 локатора для обеих локализаций,
     # т.к. не на что натравиться кроме title
-    APPS_AND_GAMES_RU_SEGMENTS = (
+    APPS_AND_GAMES_SEGMENTS = lambda x: (
         By.XPATH,
-        '//div[contains(text(), "Приложения и игры")]'
-    )
-    APPS_AND_GAMES_ENG_SEGMENTS = (
-        By.XPATH,
-        '//div[contains(text(), "Apps and games")]'
+        f'//div[contains(text(), "{x}")]'
     )
 
     ADDING_SEGMENTS_LOCATOR = (By.CLASS_NAME, 'js-modal-title')
@@ -38,14 +34,14 @@ class AudiencesLocators:
         '//div[@class="create-segment-form__btn-wrap js-create-segment-button-wrap"]/button'
     )
 
-    SEGMENT_IN_LIST_TEMPLATE = (
+    SEGMENT_IN_LIST_TEMPLATE = lambda x:(
         By.XPATH,
-        '//div[./a[@title="{}"]]/..'
+        f'//div[./a[@title="{x}"]]/..'
     )
 
-    DELETE_SEGMENT_TEMPLATE = (
+    DELETE_SEGMENT_TEMPLATE = lambda x:(
         By.XPATH,
-        '//div[@data-row-id="{}"]/span'
+        f'//div[@data-row-id="{x}"]/span'
     )
 
     DELETE_BUTTON = (

@@ -46,12 +46,7 @@ class Test(BaseCase):
         self.logger.info('Creating new campaign')
         with allure.step('Creating new campaign'):
             campaign_name = campaign_creation_page.create_campaign(repo_root)
-        assert main_page.find(
-            (
-                main_page.locators.CAMPAIGN_NAME_TEMPLATE[0],
-                main_page.locators.CAMPAIGN_NAME_TEMPLATE[1].format(campaign_name)
-            )
-        )
+        assert main_page.find(main_page.locators.CAMPAIGN_NAME_TEMPLATE(campaign_name))
 
     @allure.epic('All tests')
     @allure.feature('UI test')
@@ -67,10 +62,7 @@ class Test(BaseCase):
         with allure.step('Creating new segment'):
             segment_name = audiences_page.create_segment()
 
-        assert audiences_page.find((
-            audiences_page.locators.SEGMENT_IN_LIST_TEMPLATE[0],
-            audiences_page.locators.SEGMENT_IN_LIST_TEMPLATE[1].format(segment_name)
-        )).is_displayed()
+        assert audiences_page.find(audiences_page.locators.SEGMENT_IN_LIST_TEMPLATE(segment_name)).is_displayed()
 
     @allure.epic('All tests')
     @allure.feature('UI test')
