@@ -13,9 +13,7 @@ class Test(BaseCase):
     @allure.description("""Negative test with wrong password""")
     @pytest.mark.UI
     def test_wrong_password(self):
-        self.login_page.login(
-            password=self.base_page.create_random_str()
-        )
+        self.login_page.login(password=self.base_page.create_random_str())
         login_error_page = LoginErrorPage(self.driver)
         assert login_error_page.find(login_error_page.locators.ERROR_MESSAGE_LOCATOR).is_displayed()
 
@@ -25,12 +23,7 @@ class Test(BaseCase):
     @allure.description("""Negative test with wrong user name""")
     @pytest.mark.UI
     def test_wrong_user_name(self):
-        self.login_page.login(
-            user_name=self.base_page.create_random_str() +
-                      '@' +
-                      self.base_page.create_random_str() +
-                      '.ru'
-        )
+        self.login_page.login(user_name=self.base_page.create_random_email())
         login_error_page = LoginErrorPage(self.driver)
         assert login_error_page.find(login_error_page.locators.ERROR_MESSAGE_LOCATOR).is_displayed()
 

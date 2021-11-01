@@ -20,6 +20,12 @@ class BasePage:
         self.logger = logging.getLogger('test')
         self.is_opened()
 
+    def create_random_email(self):
+        return (self.create_random_str() +
+                '@' +
+                self.create_random_str() +
+                '.ru')
+
     @staticmethod
     def create_random_str():
         return ''.join([chr(random.randint(97, 122)) for _ in range(7)])
