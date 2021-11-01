@@ -21,32 +21,32 @@ class AudiencesLocators:
 
     ADD_SEGMENT_BUTTON = (
         By.XPATH,
-        '//div[@class="adding-segments-modal__btn-wrap js-add-button"]/button'
+        '//div[contains(@class, "js-add-button")]/button'
     )
 
     SEGMENT_NAME_INPUT_LOCATOR = (
         By.XPATH,
-        '//input[@class="input__inp js-form-element" and @maxlength="60"]'
+        '//input[contains(@class, "js-form-element") and @maxlength="60"]'
     )
 
     CREATE_SEGMENT_BUTTON = (
         By.XPATH,
-        '//div[@class="create-segment-form__btn-wrap js-create-segment-button-wrap"]/button'
+        '//div[contains(@class, "js-create-segment-button-wrap")]/button'
     )
 
-    SEGMENT_IN_LIST_TEMPLATE = lambda x:(
+    SEGMENT_IN_LIST_TEMPLATE = lambda x: (
         By.XPATH,
         f'//div[./a[@title="{x}"]]/..'
     )
 
-    DELETE_SEGMENT_TEMPLATE = lambda x:(
+    DELETE_SEGMENT_TEMPLATE = lambda x: (
         By.XPATH,
         f'//div[@data-row-id="{x}"]/span'
     )
 
     DELETE_BUTTON = (
         By.XPATH,
-        '//button[@class="button button_confirm-remove button_general"]'
+        '//button[contains(@class, "button_general")]'
     )
 
     DELETE_MESSAGE_LOCATOR = (

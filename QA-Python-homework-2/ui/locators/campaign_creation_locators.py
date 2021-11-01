@@ -2,12 +2,13 @@ from selenium.webdriver.common.by import By
 
 
 class CampaignCreationLocators:
-    TRAFFIC_BUTTON = (By.XPATH, '//div[contains(@class, "column-list-item _traffic")]')
+    TRAFFIC_BUTTON = (By.XPATH, '//div[contains(@class, "_traffic")]')
+
     CAMPAIGN_LINK_INPUT_LOCATOR = (By.XPATH, '//input[@data-gtm-id="ad_url_text"]')
 
     CAMPAIGN_NAME_INPUT_LOCATOR = (
         By.XPATH,
-        '//div[@class="input input_campaign-name input_with-close"]/div[@class="input__wrap"]/input'
+        '//div[contains(@class,"input_with-close")]/div[@class="input__wrap"]/input'
     )
 
     BANNER_BUTTON = (By.ID, "patterns_banner_4")
@@ -19,4 +20,4 @@ class CampaignCreationLocators:
 
     CAMPAIGN_NAME_LOCATOR = (By.CLASS_NAME, "campaign-name__title")
 
-    CREATE_A_CAMPAIGN_BUTTON = (By.XPATH, '//div[@class="footer__button js-save-button-wrap"]/button')
+    CREATE_A_CAMPAIGN_BUTTON = (By.XPATH, '//div[contains(@class, "js-save-button-wrap")]/button')
