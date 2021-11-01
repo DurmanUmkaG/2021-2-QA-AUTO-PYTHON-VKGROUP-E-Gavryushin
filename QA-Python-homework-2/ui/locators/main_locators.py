@@ -12,6 +12,16 @@ class MainPageLocators:
         '//a[@href="/campaign/new"]'
     )
 
-    CAMPAIGN_NAME_TEMPLATE = lambda x:(By.XPATH, f'//a[@title="{x}"]')
+    CAMPAIGN_NAME_TEMPLATE = lambda x: (By.XPATH, f'//a[@title="{x}"]/../..')
 
     AUDIENCES_LOCATOR = (By.XPATH, '//a[@href="/segments"]')
+
+    CAMPAIGN_SETTINGS_LOCATOR_TEMPLATE = lambda x: (
+        By.XPATH,
+        f'//div[@data-row-id="{x}"]//div[contains(@class, "settingsCell-module-settingsIcon")]'
+    )
+
+    CAMPAIGN_REMOVE_LOCATOR = (
+        By.XPATH,
+        '//li[@data-id="3"]'
+    )

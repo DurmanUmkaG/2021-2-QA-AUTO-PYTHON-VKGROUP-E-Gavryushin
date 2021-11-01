@@ -48,6 +48,10 @@ class Test(BaseCase):
             campaign_name = campaign_creation_page.create_campaign(repo_root)
         assert main_page.find(main_page.locators.CAMPAIGN_NAME_TEMPLATE(campaign_name))
 
+        self.logger.info(f'Deleting campaign {campaign_name}')
+        with allure.step(f'Deleting campaign {campaign_name}'):
+            main_page.delete_campaign(campaign_name)
+
     @allure.epic('All tests')
     @allure.feature('UI test')
     @allure.story('Test create segment')

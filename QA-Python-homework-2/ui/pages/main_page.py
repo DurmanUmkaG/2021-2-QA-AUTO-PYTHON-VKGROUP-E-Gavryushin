@@ -22,3 +22,9 @@ class MainPage(BasePage):
     def go_to_audiences_page(self):
         self.click(self.locators.AUDIENCES_LOCATOR)
         return AudiencesPage(self.driver)
+
+    @allure.step('Deleting campaign {campaign_name}')
+    def delete_campaign(self, campaign_name):
+        data_row_id = self.find(self.locators.CAMPAIGN_NAME_TEMPLATE(campaign_name)).get_attribute('data-row-id')
+        self.click(self.locators.CAMPAIGN_SETTINGS_LOCATOR_TEMPLATE(data_row_id))
+        self.click(self.locators.CAMPAIGN_REMOVE_LOCATOR)
