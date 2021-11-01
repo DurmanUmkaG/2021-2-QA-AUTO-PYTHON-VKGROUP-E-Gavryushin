@@ -1,11 +1,9 @@
-import time
-
 import allure
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
 
 from ui.locators.audiences_locators import AudiencesLocators
 from ui.pages.base_page import BasePage
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class AudiencesPage(BasePage):
@@ -33,22 +31,16 @@ class AudiencesPage(BasePage):
 
         return segment_name
 
-    @allure.step('Deleting segment')
-    def delete_segment(self):
-        self.logger.info('Deleting segment')
-
-        segment_name = self.create_segment()
-
+    @allure.step('Deleting segment {segment_name}')
+    def delete_segment(self, segment_name):
         data_row_id = self.find(self.locators.SEGMENT_IN_LIST_TEMPLATE(segment_name)).get_attribute('data-row-id')
 
         self.click(self.locators.DELETE_SEGMENT_TEMPLATE(data_row_id))
 
         self.click(self.locators.DELETE_BUTTON)
-        return segment_name
-
-    def is_segment_deleted(self):
-        segment_name = self.delete_segment()
         self.wait().until(EC.invisibility_of_element_located(self.locators.DELETE_MESSAGE_LOCATOR))
+
+    def is_segment_deleted(self, segment_name):
         try:
             self.find(self.locators.SEGMENT_IN_LIST_TEMPLATE(segment_name))
             return False

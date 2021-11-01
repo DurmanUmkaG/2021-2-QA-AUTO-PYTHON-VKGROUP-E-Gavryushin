@@ -2,7 +2,6 @@ import allure
 import pytest
 
 from base import BaseCase
-
 from ui.pages.login_error_page import LoginErrorPage
 
 
@@ -68,6 +67,10 @@ class Test(BaseCase):
 
         assert audiences_page.find(audiences_page.locators.SEGMENT_IN_LIST_TEMPLATE(segment_name)).is_displayed()
 
+        self.logger.info(f'Deleting segment {segment_name}')
+        with allure.step(f'Deleting segment {segment_name}'):
+            audiences_page.delete_segment(segment_name)
+
     @allure.epic('All tests')
     @allure.feature('UI test')
     @allure.story('Test delete segment')
@@ -78,4 +81,12 @@ class Test(BaseCase):
         with allure.step('Going to audiences page'):
             audiences_page = main_page.go_to_audiences_page()
 
-        assert audiences_page.is_segment_deleted()
+        self.logger.info('Creating new segment')
+        with allure.step('Creating new segment'):
+            segment_name = audiences_page.create_segment()
+
+        self.logger.info(f'Deleting segment {segment_name}')
+        with allure.step(f'Deleting segment {segment_name}'):
+            audiences_page.delete_segment(segment_name)
+
+        assert audiences_page.is_segment_deleted(segment_name)
