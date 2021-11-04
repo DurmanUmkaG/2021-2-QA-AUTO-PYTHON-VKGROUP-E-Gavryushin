@@ -5,6 +5,8 @@ import sys
 import pytest
 import logging
 
+from api.client import ApiClient
+
 
 def pytest_addoption(parser):
     parser.addoption('--url', default='https://target.my.com/')
@@ -78,3 +80,8 @@ def logger(temp_dir, config):
 
     for handler in log.handlers:
         handler.close()
+
+
+@pytest.fixture(scope='function')
+def api_client(config, credentials):
+    return ApiClient(config['url'], *credentials)
