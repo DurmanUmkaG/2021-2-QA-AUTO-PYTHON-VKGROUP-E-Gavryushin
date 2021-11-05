@@ -1,8 +1,10 @@
 import os.path
 
+import pytest
+
 from tests.base import ApiBase
 
-
+@pytest.mark.API
 class TestApi(ApiBase):
 
     def test_create_segment(self):
