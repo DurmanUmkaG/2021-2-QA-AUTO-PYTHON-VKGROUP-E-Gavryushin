@@ -1,12 +1,14 @@
 import logging
 from urllib.parse import urljoin
+
 import requests
-from requests.cookies import cookiejar_from_dict
 
 logger = logging.getLogger('test')
 MAX_RESPONSE_LENGTH = 100
 LEFT = 365
 RIGHT = 0
+WIDTH = 0
+HEIGHT = 0
 
 
 class ResponseStatusCodeException(Exception):
@@ -51,11 +53,14 @@ class ApiClient:
                         f'RESPONSE CONTENT: {response.text}\n\n'
                         )
 
-    def _request(self, method, url, headers=None, data=None, json_data=None, allow_redirects=True, expected_status=200,
+    def _request(self, method, url, headers=None, data=None, json_data=None, params=None, files=None,
+                 allow_redirects=True,
+                 expected_status=200,
                  jsonify=False):
         self.log_pre(url, headers, data, expected_status)
 
-        response = self.session.request(method, url, headers=headers, data=data, json=json_data,
+        response = self.session.request(method, url, headers=headers, data=data, json=json_data, params=params,
+                                        files=files,
                                         allow_redirects=allow_redirects)
 
         self.log_post(response)
@@ -141,5 +146,104 @@ class ApiClient:
         }]
 
         response = self._request('POST', url, headers=headers, json_data=data, jsonify=True)
+
+        return response
+
+    def get_campaign_url(self, random_url):
+        url = urljoin(self.base_url, 'api/v1/urls/')
+        params = {
+            'url': random_url
+        }
+        response = self._request('GET', url, params=params, jsonify=True)
+        return response
+
+    def post_upload_image(self, path_to_file):
+        url = urljoin(self.base_url, 'api/v2/content/static.json')
+
+        file_name = 'test.jpg'
+        headers = {
+            'Referer': 'https://target.my.com/campaign/new',
+            'X-CSRFToken': self.csrf_token
+        }
+
+        files = {
+            'file': (
+                file_name,
+                open(f'{path_to_file}', 'rb'),
+                'image/jpeg',
+                {
+                    'data':
+                        {
+                            'width': WIDTH,
+                            'height': HEIGHT
+                        }
+                }
+            )
+        }
+
+        response = self._request('POST', url, headers=headers, files=files, jsonify=True)
+
+        return response
+
+    def post_create_campaign(self, name, path_to_file, random_url):
+        url = urljoin(self.base_url, 'api/v2/campaigns.json')
+        url_id = self.get_campaign_url(random_url)['id']
+        file_id = self.post_upload_image(path_to_file)['id']
+
+        headers = {
+            'Content-Type': 'application/json',
+            'Referer': 'https://target.my.com/campaign/new',
+            'X-CSRFToken': self.csrf_token
+        }
+
+        data = {
+            'name': name,
+            'banners': [
+                {
+                    "urls": {
+                        "primary": {
+                            "id": url_id
+                        }
+                    },
+                    "textblocks": {},
+                    "content": {
+                        "image_240x400": {
+                            "id": file_id
+                        }
+                    },
+                    "name": ""
+                }
+            ],
+            'objective': 'traffic',
+            'package_id': 961
+        }
+
+        response = self._request('POST', url, headers=headers, json_data=data, jsonify=True)
+
+        return response
+
+    def get_campaigns(self):
+        url = urljoin(self.base_url, 'api/v2/campaigns.json')
+        params = {
+            '_status__in': 'active'
+        }
+        response = self._request('GET', url, params=params, jsonify=True)
+        return response
+
+    def post_delete_campaign(self, campaign_id):
+        url = urljoin(self.base_url, 'api/v2/campaigns/mass_action.json')
+
+        headers = {
+            'Content-Type': 'application/json',
+            'Referer': 'https://target.my.com/dashboard',
+            'X-CSRFToken': self.csrf_token
+        }
+
+        data = [{
+            'id': campaign_id,
+            'status': 'deleted'
+        }]
+
+        response = self._request('POST', url, headers=headers, json_data=data, expected_status=204)
 
         return response
