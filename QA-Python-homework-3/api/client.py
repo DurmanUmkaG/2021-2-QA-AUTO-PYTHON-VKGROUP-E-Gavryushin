@@ -24,6 +24,12 @@ class ApiClient:
         self.session = requests.Session()
         self.csrf_token = None
 
+    @property
+    def post_headers(self):
+        return {
+            'X-CSRFToken': self.csrf_token
+        }
+
     @staticmethod
     def log_pre(url, headers, data, expected_status):
         logger.info(f'Performing request:\n'
@@ -100,11 +106,7 @@ class ApiClient:
     def post_create_segment(self, name):
         url = urljoin(self.base_url, 'api/v2/remarketing/segments.json')
 
-        headers = {
-            'Content-Type': 'application/json',
-            'Referer': 'https://target.my.com/segments/segments_list/new',
-            'X-CSRFToken': self.csrf_token
-        }
+        headers = self.post_headers
 
         data = {
             'logicType': 'or',
@@ -134,11 +136,7 @@ class ApiClient:
     def post_delete_segments(self, segment_id):
         url = urljoin(self.base_url, 'api/v1/remarketing/mass_action/delete.json')
 
-        headers = {
-            'Content-Type': 'application/json',
-            'Referer': 'https://target.my.com/segments/segments_list',
-            'X-CSRFToken': self.csrf_token
-        }
+        headers = self.post_headers
 
         data = [{
             'source_id': segment_id,
@@ -161,10 +159,7 @@ class ApiClient:
         url = urljoin(self.base_url, 'api/v2/content/static.json')
 
         file_name = 'test.jpg'
-        headers = {
-            'Referer': 'https://target.my.com/campaign/new',
-            'X-CSRFToken': self.csrf_token
-        }
+        headers = self.post_headers
 
         files = {
             'file': (
@@ -190,11 +185,7 @@ class ApiClient:
         url_id = self.get_campaign_url(random_url)['id']
         file_id = self.post_upload_image(path_to_file)['id']
 
-        headers = {
-            'Content-Type': 'application/json',
-            'Referer': 'https://target.my.com/campaign/new',
-            'X-CSRFToken': self.csrf_token
-        }
+        headers = self.post_headers
 
         data = {
             'name': name,
@@ -233,11 +224,7 @@ class ApiClient:
     def post_delete_campaign(self, campaign_id):
         url = urljoin(self.base_url, 'api/v2/campaigns/mass_action.json')
 
-        headers = {
-            'Content-Type': 'application/json',
-            'Referer': 'https://target.my.com/dashboard',
-            'X-CSRFToken': self.csrf_token
-        }
+        headers = self.post_headers
 
         data = [{
             'id': campaign_id,
