@@ -16,12 +16,23 @@ class MainPageLocators:
 
     AUDIENCES_LOCATOR = (By.XPATH, '//a[@href="/segments"]')
 
-    CAMPAIGN_SETTINGS_LOCATOR_TEMPLATE = lambda x: (
+    CAMPAIGN_CHECKBOX_LOCATOR_TEMPLATE = lambda x: (
         By.XPATH,
-        f'//div[@data-row-id="{x}"]//div[contains(@class, "settingsCell-module-settingsIcon")]'
+        f'//div[@data-row-id="{x}"]//input'
     )
 
-    CAMPAIGN_REMOVE_LOCATOR = (
+    CAMPAIGN_ACTIONS_LOCATOR = (
         By.XPATH,
-        '//li[@data-id="3"]'
+        '//div[contains(@class, "tableControls-module-selectControl")]'
     )
+
+    CAMPAIGN_DELETE_LOCATOR = (
+        By.XPATH,
+        '//li[@data-id="8"]'
+    )
+
+    CAMPAIGN_DELTED_NOTIFICATION_LOCATOR = (
+        By.XPATH,
+        '//div[contains(@class, "dashboard-module-toastBlock")]'
+    )
+

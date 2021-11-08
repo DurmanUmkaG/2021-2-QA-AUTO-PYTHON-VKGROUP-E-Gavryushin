@@ -5,6 +5,7 @@ from ui.locators.main_locators import MainPageLocators
 from ui.pages.audiences_page import AudiencesPage
 from ui.pages.base_page import BasePage
 from ui.pages.campaign_creation_page import CampaignCreationPage
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class MainPage(BasePage):
@@ -26,5 +27,7 @@ class MainPage(BasePage):
     @allure.step('Deleting campaign {campaign_name}')
     def delete_campaign(self, campaign_name):
         data_row_id = self.find(self.locators.CAMPAIGN_NAME_TEMPLATE(campaign_name)).get_attribute('data-row-id')
-        self.click(self.locators.CAMPAIGN_SETTINGS_LOCATOR_TEMPLATE(data_row_id))
-        self.click(self.locators.CAMPAIGN_REMOVE_LOCATOR)
+        self.click(self.locators.CAMPAIGN_CHECKBOX_LOCATOR_TEMPLATE(data_row_id))
+        self.click(self.locators.CAMPAIGN_ACTIONS_LOCATOR)
+        self.click(self.locators.CAMPAIGN_DELETE_LOCATOR)
+        self.wait().until(EC.presence_of_element_located(self.locators.CAMPAIGN_DELTED_NOTIFICATION_LOCATOR))
