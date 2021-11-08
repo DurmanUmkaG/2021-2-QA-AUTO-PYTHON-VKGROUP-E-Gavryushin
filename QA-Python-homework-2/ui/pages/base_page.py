@@ -10,6 +10,7 @@ from selenium.common.exceptions import ElementClickInterceptedException
 import random
 
 CLICK_RETRY = 3
+BASE_TIMEOUT = 10
 
 
 class BasePage:
@@ -32,17 +33,16 @@ class BasePage:
 
     def wait(self, timeout=None):
         if timeout is None:
-            timeout = 10
+            timeout = BASE_TIMEOUT
         return WebDriverWait(self.driver, timeout=timeout)
 
     def find(self, locator, timeout=None):
         return self.wait(timeout).until(EC.presence_of_element_located(locator))
 
-    def send_keys(self, locator, *query):
+    def send_keys(self, locator, query):
         search = self.find(locator)
         search.clear()
-        for q in query:
-            search.send_keys(q)
+        search.send_keys(query)
 
     @allure.step('Clicking on {locator}')
     def click(self, locator, timeout=None):
