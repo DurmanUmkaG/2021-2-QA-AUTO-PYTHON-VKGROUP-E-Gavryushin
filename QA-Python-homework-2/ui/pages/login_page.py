@@ -15,4 +15,5 @@ class LoginPage(BasePage):
             password = self.create_random_str()
         self.click(self.locators.LOG_IN_LOCATOR)
         self.send_keys(self.locators.USERNAME_LOCATOR, user_name)
-        self.send_keys(self.locators.PASSWORD_LOCATOR, password, Keys.RETURN)
+        self.send_keys(self.locators.PASSWORD_LOCATOR, password)
+        self.click(self.locators.LOG_IN_BUTTON)
