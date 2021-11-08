@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class CampaignCreationPage(BasePage):
     locators = CampaignCreationLocators
+    url = 'https://target.my.com/campaign/new'
 
     @allure.step('Creating new campaign')
     def create_campaign(self, repo_root):

@@ -15,6 +15,7 @@ BASE_TIMEOUT = 10
 
 class BasePage:
     locators = BasePageLocators
+    url = 'https://target.my.com/'
 
     def __init__(self, driver):
         self.driver = driver
@@ -58,4 +59,5 @@ class BasePage:
                     raise
 
     def is_opened(self, timeout=None):
+        self.wait(timeout).until(EC.url_contains(self.url))
         self.wait(timeout).until(EC.invisibility_of_element_located(BasePageLocators.SPINNER_LOCATOR))

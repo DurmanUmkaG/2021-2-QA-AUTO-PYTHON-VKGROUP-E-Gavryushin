@@ -8,6 +8,7 @@ from ui.pages.base_page import BasePage
 
 class AudiencesPage(BasePage):
     locators = AudiencesLocators
+    url = 'https://target.my.com/segments/segments_list'
 
     @allure.step('Creating new segment')
     def create_segment(self):

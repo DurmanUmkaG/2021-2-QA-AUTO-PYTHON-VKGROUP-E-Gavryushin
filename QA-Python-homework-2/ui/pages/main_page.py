@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class MainPage(BasePage):
     locators = MainPageLocators
+    url = 'https://target.my.com/dashboard'
 
     @allure.step('Going to campaign_creation_page')
     def click_create_campaign(self):

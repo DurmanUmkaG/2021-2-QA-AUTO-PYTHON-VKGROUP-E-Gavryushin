@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 
 class LoginPage(BasePage):
     locators = LoginPageLocators
+    url = 'https://target.my.com/'
 
     def login(self, is_generate_email=False, is_generate_password=False):
         with open('files/credentials', 'r') as file:
