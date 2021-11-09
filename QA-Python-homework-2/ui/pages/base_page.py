@@ -60,4 +60,5 @@ class BasePage:
 
     def is_opened(self, timeout=None):
         self.wait(timeout).until(EC.url_contains(self.url))
-        self.wait(timeout).until(EC.invisibility_of_element_located(BasePageLocators.SPINNER_LOCATOR))
+        if len(self.driver.find_elements(*BasePageLocators.SPINNER_LOCATOR)) > 0:
+            self.wait(timeout).until(EC.invisibility_of_element_located(BasePageLocators.SPINNER_LOCATOR))
