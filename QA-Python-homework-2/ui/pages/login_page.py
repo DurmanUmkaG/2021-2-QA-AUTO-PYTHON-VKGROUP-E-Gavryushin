@@ -1,3 +1,5 @@
+import os.path
+
 from ui.pages.base_page import BasePage
 from ui.locators.login_locators import LoginPageLocators
 from selenium.webdriver.common.keys import Keys
@@ -8,7 +10,7 @@ class LoginPage(BasePage):
     url = 'https://target.my.com/'
 
     def login(self, is_generate_email=False, is_generate_password=False):
-        with open('files/credentials', 'r') as file:
+        with open(os.path.join('files', 'credentials'), 'r') as file:
             user_name, password = file.readlines()
         if is_generate_email:
             user_name = self.create_random_email()
