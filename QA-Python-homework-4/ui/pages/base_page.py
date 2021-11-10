@@ -1,4 +1,6 @@
-from selenium.common.exceptions import StaleElementReferenceException, ElementClickInterceptedException
+from appium.webdriver.common.touch_action import TouchAction
+from selenium.common.exceptions import StaleElementReferenceException, ElementClickInterceptedException, \
+    TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -33,6 +35,32 @@ class BasePage:
         elem.clear()
         elem.send_keys(query)
         self.driver.hide_keyboard()
+
+    @property
+    def touch_action(self):
+        return TouchAction(self.driver)
+
+    def swipe_element_to_left(self, locator):
+        web_element = self.find(locator, 10)
+        left_x = web_element.location['x']
+        right_x = left_x + web_element.rect['width']
+        upper_y = web_element.location['y']
+        lower_y = upper_y + web_element.rect['height']
+        middle_y = (upper_y + lower_y) / 2
+        self.touch_action. \
+            press(x=right_x, y=middle_y). \
+            wait(ms=300). \
+            move_to(x=left_x, y=middle_y). \
+            release(). \
+            perform()
+
+    def swipe_to_element(self, swiped_locator, locator, max_swipes):
+        already_swiped = 0
+        while len(self.driver.find_elements(*locator)) == 0:
+            if already_swiped > max_swipes:
+                raise TimeoutException(f'Error with {locator}, please check function')
+            self.swipe_element_to_left(swiped_locator)
+            already_swiped += 1
 
     def wait(self, timeout=None):
         if timeout is None:
