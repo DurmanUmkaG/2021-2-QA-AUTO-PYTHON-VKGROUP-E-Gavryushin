@@ -2,6 +2,12 @@ import pytest
 from appium import webdriver
 
 from ui.capability import capability_select
+from ui.pages.base_page import BasePage
+
+
+@pytest.fixture
+def base_page(driver):
+    return BasePage(driver=driver)
 
 
 @pytest.fixture(scope='function')
