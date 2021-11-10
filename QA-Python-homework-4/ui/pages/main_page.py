@@ -7,14 +7,25 @@ class MainPage(BasePage):
 
     def get_population(self):
         self.click(self.locators.KEYBOARD_BUTTON)
+
         for i in range(2):
             self.send_keys(self.locators.INPUT_FIELD_LOCATOR, 'Russia')
             self.click(self.locators.SEND_TEXT_BUTTON)
+
         assert self.find(self.locators.RUSSIA_BLOCK_LOCATOR).is_displayed()
+
         self.swipe_to_element(
             self.locators.SUGGEST_ITEM_TEMPLATE_LOCATOR('Нет'),
             self.locators.SUGGEST_ITEM_TEMPLATE_LOCATOR('население россии'),
             10
         )
+
         self.click(self.locators.SUGGEST_ITEM_TEMPLATE_LOCATOR('население россии'))
+
         return self.find(self.locators.RUSSIAN_POPULATION_LOCATOR).get_attribute('text')
+
+    def get_calculation_result(self, number1, number2):
+        self.click(self.locators.KEYBOARD_BUTTON)
+        self.send_keys(self.locators.INPUT_FIELD_LOCATOR, f'{number1} + {number2}')
+        self.click(self.locators.SEND_TEXT_BUTTON)
+        return self.find(self.locators.SUGGEST_ITEM_TEMPLATE_LOCATOR(str(number1 + number2))).get_attribute('text')
