@@ -1,5 +1,6 @@
 from ui.locators.main_locators import MainPageLocators
 from ui.pages.base_page import BasePage
+from ui.pages.settings_page import SettingsPage
 
 
 class MainPage(BasePage):
@@ -15,9 +16,9 @@ class MainPage(BasePage):
         assert self.find(self.locators.RUSSIA_BLOCK_LOCATOR).is_displayed()
 
         self.swipe_to_element(
-            self.locators.SUGGEST_ITEM_TEMPLATE_LOCATOR('Нет'),
+            self.swipe_element_to_left,
             self.locators.SUGGEST_ITEM_TEMPLATE_LOCATOR('население россии'),
-            10
+            self.locators.SUGGEST_ITEM_TEMPLATE_LOCATOR('Нет')
         )
 
         self.click(self.locators.SUGGEST_ITEM_TEMPLATE_LOCATOR('население россии'))
@@ -29,3 +30,7 @@ class MainPage(BasePage):
         self.send_keys(self.locators.INPUT_FIELD_LOCATOR, f'{number1} + {number2}')
         self.click(self.locators.SEND_TEXT_BUTTON)
         return self.find(self.locators.SUGGEST_ITEM_TEMPLATE_LOCATOR(str(number1 + number2))).get_attribute('text')
+
+    def go_to_settings_page(self):
+        self.click(self.locators.SETTINGS_BUTTON)
+        return SettingsPage(self.driver)

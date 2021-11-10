@@ -31,3 +31,8 @@ class MainPageLocators:
         MobileBy.ID,
         'ru.mail.search.electroscope:id/item_dialog_fact_card_content_block'
     )
+
+    SETTINGS_BUTTON = (
+        MobileBy.ID,
+        'ru.mail.search.electroscope:id/assistant_menu_bottom'
+    )
