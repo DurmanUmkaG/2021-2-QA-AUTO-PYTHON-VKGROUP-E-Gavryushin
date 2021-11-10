@@ -26,3 +26,8 @@ class MainPageLocators:
         MobileBy.ID,
         'ru.mail.search.electroscope:id/item_dialog_fact_card_content_text'
     )
+
+    RUSSIA_BLOCK_LOCATOR = (
+        MobileBy.ID,
+        'ru.mail.search.electroscope:id/item_dialog_fact_card_content_block'
+    )
