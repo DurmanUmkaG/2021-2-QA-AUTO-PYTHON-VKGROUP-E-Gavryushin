@@ -39,7 +39,7 @@ class MainPage(BasePage):
         settings_page = self.go_to_settings_page()
         news_source_page = settings_page.go_to_news_source_page()
         news_source_page.click(news_source_page.locators.NEWS_SOURCE_LOCATOR)
-        assert news_source_page.find(news_source_page.locators.CHECK_MARK_LOCATOR)
+        assert news_source_page.find(news_source_page.locators.CHECK_MARK_LOCATOR).is_displayed()
         news_source_page.click(news_source_page.locators.ARROW_LOCATOR)
         settings_page.click(settings_page.locators.CLOSE_BUTTON)
         self.click(self.locators.KEYBOARD_BUTTON)
