@@ -11,3 +11,8 @@ class SettingsPageLocators:
         MobileBy.XPATH,
         '//android.widget.ImageButton'
     )
+
+    ABOUT_APP_LOCATOR = (
+        MobileBy.ID,
+        'ru.mail.search.electroscope:id/user_settings_about'
+    )

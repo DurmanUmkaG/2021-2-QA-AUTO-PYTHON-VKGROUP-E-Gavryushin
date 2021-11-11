@@ -13,3 +13,8 @@ class Test(BaseCase):
 
     def test_news_source(self):
         assert self.main_page.get_news_source() == 'Вести ФМ'
+
+    def test_app_version(self, apk_path):
+        settings_page = self.main_page.go_to_settings_page()
+        about_app_page = settings_page.go_to_about_app_page()
+        assert about_app_page.get_app_version() in apk_path
