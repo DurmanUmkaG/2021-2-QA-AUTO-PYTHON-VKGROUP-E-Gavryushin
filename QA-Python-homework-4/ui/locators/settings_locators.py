@@ -6,3 +6,8 @@ class SettingsPageLocators:
         MobileBy.ID,
         'ru.mail.search.electroscope:id/user_settings_field_news_sources'
     )
+
+    CLOSE_BUTTON = (
+        MobileBy.XPATH,
+        '//android.widget.ImageButton'
+    )
