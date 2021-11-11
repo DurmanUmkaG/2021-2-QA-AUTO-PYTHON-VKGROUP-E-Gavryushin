@@ -18,3 +18,8 @@ class Test(BaseCase):
         settings_page = self.main_page.go_to_settings_page()
         about_app_page = settings_page.go_to_about_app_page()
         assert about_app_page.get_app_version() in apk_path
+
+    def test_trade_mark(self):
+        settings_page = self.main_page.go_to_settings_page()
+        about_app_page = settings_page.go_to_about_app_page()
+        assert 'Все права защищены' in about_app_page.get_trade_mark()
