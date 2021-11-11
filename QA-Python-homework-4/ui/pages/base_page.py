@@ -5,11 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from ui.locators.basic_locators import BasePageLocators
-
-CLICK_RETRY = 3
-BASE_TIMEOUT = 10
-BASE_SWIPE_TIME_MS = 300
-MAX_SWIPES = 10
+import constatnts
 
 
 class BasePage:
@@ -22,14 +18,14 @@ class BasePage:
         return self.wait(timeout).until(EC.presence_of_element_located(locator))
 
     def click(self, locator, timeout=None):
-        for i in range(CLICK_RETRY):
+        for i in range(constatnts.CLICK_RETRY):
             try:
                 self.find(locator, timeout)
                 elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
                 elem.click()
                 return
             except (StaleElementReferenceException, ElementClickInterceptedException):
-                if i == CLICK_RETRY - 1:
+                if i == constatnts.CLICK_RETRY - 1:
                     raise
 
     def send_keys(self, locator, query):
@@ -42,7 +38,7 @@ class BasePage:
     def touch_action(self):
         return TouchAction(self.driver)
 
-    def swipe_element_to_left(self, locator, swipe_time=BASE_SWIPE_TIME_MS):
+    def swipe_element_to_left(self, locator, swipe_time=constatnts.BASE_SWIPE_TIME_MS):
         web_element = self.find(locator, 10)
         left_x = web_element.location['x']
         right_x = left_x + web_element.rect['width']
@@ -56,7 +52,7 @@ class BasePage:
             release(). \
             perform()
 
-    def swipe_up(self, swipe_time=BASE_SWIPE_TIME_MS):
+    def swipe_up(self, swipe_time=constatnts.BASE_SWIPE_TIME_MS):
         dimension = self.driver.get_window_size()
         x = int(dimension['width'] / 2)
         start_y = int(dimension['height'] * 0.8)
@@ -68,7 +64,7 @@ class BasePage:
             release(). \
             perform()
 
-    def swipe_to_element(self, swiped_method, locator, swiped_locator=None, max_swipes=MAX_SWIPES):
+    def swipe_to_element(self, swiped_method, locator, swiped_locator=None, max_swipes=constatnts.MAX_SWIPES):
         already_swiped = 0
         while len(self.driver.find_elements(*locator)) == 0:
             if already_swiped > max_swipes:
@@ -81,5 +77,5 @@ class BasePage:
 
     def wait(self, timeout=None):
         if timeout is None:
-            timeout = BASE_TIMEOUT
+            timeout = constatnts.BASE_TIMEOUT
         return WebDriverWait(self.driver, timeout)
