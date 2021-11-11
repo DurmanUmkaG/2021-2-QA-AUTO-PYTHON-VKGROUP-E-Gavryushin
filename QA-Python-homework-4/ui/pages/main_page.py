@@ -34,3 +34,15 @@ class MainPage(BasePage):
     def go_to_settings_page(self):
         self.click(self.locators.SETTINGS_BUTTON)
         return SettingsPage(self.driver)
+
+    def get_news_source(self):
+        settings_page = self.go_to_settings_page()
+        news_source_page = settings_page.go_to_news_source_page()
+        news_source_page.click(news_source_page.locators.NEWS_SOURCE_LOCATOR)
+        assert news_source_page.find(news_source_page.locators.CHECK_MARK_LOCATOR)
+        news_source_page.click(news_source_page.locators.ARROW_LOCATOR)
+        settings_page.click(settings_page.locators.CLOSE_BUTTON)
+        self.click(self.locators.KEYBOARD_BUTTON)
+        self.send_keys(self.locators.INPUT_FIELD_LOCATOR, "News")
+        self.click(self.locators.SEND_TEXT_BUTTON)
+        return self.find(self.locators.NEWS_SOURCE_LOCATOR).get_attribute('text')

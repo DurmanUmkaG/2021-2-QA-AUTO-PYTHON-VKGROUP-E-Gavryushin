@@ -36,3 +36,8 @@ class MainPageLocators:
         MobileBy.ID,
         'ru.mail.search.electroscope:id/assistant_menu_bottom'
     )
+
+    NEWS_SOURCE_LOCATOR = (
+        MobileBy.ID,
+        'ru.mail.search.electroscope:id/player_track_name'
+    )

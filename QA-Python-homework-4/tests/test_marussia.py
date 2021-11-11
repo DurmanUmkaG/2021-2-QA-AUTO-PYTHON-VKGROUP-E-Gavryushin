@@ -10,3 +10,6 @@ class Test(BaseCase):
         assert self.main_page.get_calculation_result(
             expression['number1'],
             expression['number2']) == str(expression["result"])
+
+    def test_news_source(self):
+        assert self.main_page.get_news_source() == 'Вести ФМ'
