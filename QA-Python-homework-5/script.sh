@@ -8,7 +8,7 @@ cat $FILE | wc -l  >> result.txt
 echo >> result.txt
 
 echo "Общее количество запросов по типу" >> result.txt
-awk -F "\"" '{print $2}' $FILE  | awk '{print $1}' | sort | uniq -c | awk 'NR > 1 {print $2, $1}' >> result.txt
+awk -F "\"" '{print $2}' $FILE  | awk '{print $1}' | sort | uniq -c | awk '{print $2, $1}' >> result.txt
 echo >> result.txt
 
 echo "Топ 10 самых частых запросов" >> result.txt
