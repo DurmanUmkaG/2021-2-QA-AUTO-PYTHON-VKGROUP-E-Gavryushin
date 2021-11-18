@@ -1,5 +1,8 @@
 import sqlalchemy
+from sqlalchemy import inspect
 from sqlalchemy.orm import sessionmaker
+
+from models.model import Base
 
 
 class MysqlClient:
@@ -38,3 +41,7 @@ class MysqlClient:
         res = self.connection.execute(query)
         if fetch:
             return res.fetchall()
+
+    def create_table(self, table_name):
+        if not inspect(self.engine).has_table(table_name):
+            Base.metadata.tables[table_name].create(self.engine)
