@@ -27,3 +27,14 @@ class MysqlBuilder:
         self.client.session.commit()
 
         return number_of_requests_by_type
+
+    def create_frequent_request(self, url, number_of_requests):
+        frequent_request = FrequentRequest(
+            url=url,
+            number_of_requests=number_of_requests
+        )
+
+        self.client.session.add(frequent_request)
+        self.client.session.commit()
+
+        return frequent_request

@@ -22,3 +22,16 @@ class TestMysqlNumberOfRequestsByType(MysqlBase):
     def test_number_of_requests_by_type(self):
         assert self.get_numbers_of_rows_in_table(NumberOfRequestsByType) == len(
             script.get_total_number_of_requests_by_type(self.data))
+
+
+class TestMysqlTop10MostFrequentRequests(MysqlBase):
+    def prepare(self):
+        for i in script.get_top_10_most_frequent_requests(self.data):
+            self.mysql_builder.create_frequent_request(
+                url=i['url'],
+                number_of_requests=i['number_of_requests']
+            )
+
+    def test_top10_most_frequent_requests(self):
+        assert self.get_numbers_of_rows_in_table(FrequentRequest) == len(
+            script.get_top_10_most_frequent_requests(self.data))

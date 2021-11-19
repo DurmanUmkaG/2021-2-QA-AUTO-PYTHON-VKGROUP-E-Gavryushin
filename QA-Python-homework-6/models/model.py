@@ -22,7 +22,7 @@ class FrequentRequest(Base):
     __tablename__ = 'top_10_most_frequent_requests'
     id = Column(Integer, primary_key=True, autoincrement=True)
     url = Column(String(255), nullable=False)
-    number_of_request = Column(Integer, nullable=False)
+    number_of_requests = Column(Integer, nullable=False)
 
 
 class BiggestSizeRequest(Base):
