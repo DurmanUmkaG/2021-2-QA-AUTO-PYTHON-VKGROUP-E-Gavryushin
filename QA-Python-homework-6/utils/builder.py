@@ -17,3 +17,13 @@ class MysqlBuilder:
         self.client.session.commit()
 
         return number_of_requests
+
+    def create_number_of_requests_by_type(self, request_type, number_of_requests):
+        number_of_requests_by_type = NumberOfRequestsByType(
+            request_type=request_type,
+            number_of_requests=number_of_requests
+        )
+        self.client.session.add(number_of_requests_by_type)
+        self.client.session.commit()
+
+        return number_of_requests_by_type

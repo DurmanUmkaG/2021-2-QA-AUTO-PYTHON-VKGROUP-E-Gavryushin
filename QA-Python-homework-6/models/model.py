@@ -14,7 +14,7 @@ class NumberOfRequests(Base):
 class NumberOfRequestsByType(Base):
     __tablename__ = 'number_of_requests_by_type'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    request_type = Column(String(255), nullable=False)
+    request_type = Column(String(300), nullable=False)
     number_of_requests = Column(Integer, nullable=False)
 
 
