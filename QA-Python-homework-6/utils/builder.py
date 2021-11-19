@@ -38,3 +38,14 @@ class MysqlBuilder:
         self.client.session.commit()
 
         return frequent_request
+
+    def create_biggest_size_request(self, url, status_code, request_size, ip):
+        biggest_size_request = BiggestSizeRequest(
+            url=url,
+            status_code=status_code,
+            request_size=request_size,
+            ip=ip
+        )
+
+        self.client.session.add(biggest_size_request)
+        self.client.session.commit()

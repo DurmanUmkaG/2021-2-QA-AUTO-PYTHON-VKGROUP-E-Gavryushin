@@ -31,6 +31,7 @@ class BiggestSizeRequest(Base):
     url = Column(String(255), nullable=False)
     status_code = Column(Integer, nullable=False)
     request_size = Column(Integer, nullable=False)
+    ip = Column(String(40), nullable=False)
 
 
 class UserWithMaxNumberOfRequests(Base):

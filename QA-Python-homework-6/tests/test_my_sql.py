@@ -35,3 +35,18 @@ class TestMysqlTop10MostFrequentRequests(MysqlBase):
     def test_top10_most_frequent_requests(self):
         assert self.get_numbers_of_rows_in_table(FrequentRequest) == len(
             script.get_top_10_most_frequent_requests(self.data))
+
+
+class TestMysqlTop5BiggestSizeRequests(MysqlBase):
+    def prepare(self):
+        for i in script.get_top_5_biggest_size_requests(self.data):
+            self.mysql_builder.create_biggest_size_request(
+                url=i['url'],
+                status_code=i['status_code'],
+                request_size=i['request_size'],
+                ip=i['ip']
+            )
+
+    def test_top_5_biggest_size_requests(self):
+        assert self.get_numbers_of_rows_in_table(BiggestSizeRequest) == len(
+            script.get_top_5_biggest_size_requests(self.data))
