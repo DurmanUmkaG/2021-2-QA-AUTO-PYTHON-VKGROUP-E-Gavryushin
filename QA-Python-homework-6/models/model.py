@@ -38,4 +38,4 @@ class UserWithMaxNumberOfRequests(Base):
     __tablename__ = 'top_5_users_by_the_number_of_requests'
     id = Column(Integer, primary_key=True, autoincrement=True)
     ip = Column(String(40), nullable=False)
-    number_of_request = Column(Integer, nullable=False)
+    number_of_requests = Column(Integer, nullable=False)

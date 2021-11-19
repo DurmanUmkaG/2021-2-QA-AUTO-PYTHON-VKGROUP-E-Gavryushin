@@ -49,3 +49,12 @@ class MysqlBuilder:
 
         self.client.session.add(biggest_size_request)
         self.client.session.commit()
+
+    def create_user_with_max_number_of_request(self, ip, number_of_requests):
+        user_with_max_number_of_request = UserWithMaxNumberOfRequests(
+            ip=ip,
+            number_of_requests=number_of_requests
+        )
+
+        self.client.session.add(user_with_max_number_of_request)
+        self.client.session.commit()

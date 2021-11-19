@@ -50,3 +50,16 @@ class TestMysqlTop5BiggestSizeRequests(MysqlBase):
     def test_top_5_biggest_size_requests(self):
         assert self.get_numbers_of_rows_in_table(BiggestSizeRequest) == len(
             script.get_top_5_biggest_size_requests(self.data))
+
+
+class TestTop5UsersByTheNumberOfRequests(MysqlBase):
+    def prepare(self):
+        for i in script.get_top_5_users_by_the_number_of_requests(self.data):
+            self.mysql_builder.create_user_with_max_number_of_request(
+                ip=i['ip'],
+                number_of_requests=i['number_of_requests']
+            )
+
+    def test_top_5_users_by_the_number_of_requests(self):
+        assert self.get_numbers_of_rows_in_table(UserWithMaxNumberOfRequests) == len(
+            script.get_top_5_users_by_the_number_of_requests(self.data))
