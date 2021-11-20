@@ -19,7 +19,7 @@ def pytest_configure(config):
         password='pass',
         db_name='TEST_SQL',
         host='127.0.0.1',
-        port=3307
+        port=3306
     )
     if not hasattr(config, 'workerinput'):
         mysql_client.recreate_db()
