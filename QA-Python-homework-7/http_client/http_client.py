@@ -41,8 +41,12 @@ class HTTPClient:
     def post_add_user(self, name, surname):
         return self._request('POST', '/add_user', data={'name': name, 'surname': surname})
 
-    def get_user(self, name):
+    def get_user_by_name(self, name):
         return self._request('GET', f'/get_surname/{name}')
+
+    def delete_user_by_name(self, name):
+        return self._request('DELETE', f'/delete_user/{name}')
+
 
     def receive_data(self):
         total_data = []

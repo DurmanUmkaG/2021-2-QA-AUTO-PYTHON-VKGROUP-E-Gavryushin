@@ -1,5 +1,6 @@
 import json
 import threading
+from copy import copy
 
 from flask import Flask, request, jsonify
 
@@ -28,6 +29,16 @@ def get_user_surname(name):
         return jsonify(surname), 200
     else:
         return jsonify(f'Surname for user "{name}" not found'), 404
+
+
+@app.route('/delete_user/<name>', methods=['DELETE'])
+def delete_user_by_name(name):
+    if name in SURNAME_DATA:
+        user = copy(SURNAME_DATA)
+        SURNAME_DATA.pop(name)
+        return jsonify(user), 200
+    else:
+        return jsonify(f'User with name {name} not found'), 404
 
 
 def run_mock():
