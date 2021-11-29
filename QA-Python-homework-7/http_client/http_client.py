@@ -47,6 +47,8 @@ class HTTPClient:
     def delete_user_by_name(self, name):
         return self._request('DELETE', f'/delete_user/{name}')
 
+    def put_update_user_by_name(self, name, surname):
+        return self._request('PUT', f'/update_user/{name}', data={name: surname})
 
     def receive_data(self):
         total_data = []

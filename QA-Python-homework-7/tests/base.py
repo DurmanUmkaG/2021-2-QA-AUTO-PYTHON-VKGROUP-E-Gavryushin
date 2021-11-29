@@ -24,3 +24,6 @@ class BaseTest:
 
     def delete_user_by_name(self, name):
         return self.client.delete_user_by_name(name)
+
+    def update_user_by_name(self, name, surname):
+        return self.client.put_update_user_by_name(name, surname)

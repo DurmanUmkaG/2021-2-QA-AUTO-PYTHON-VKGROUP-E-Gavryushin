@@ -16,3 +16,11 @@ class TestMock(BaseTest):
 
     def test_delete_non_existent_user(self):
         assert 'not found' in self.delete_user_by_name(self.builder.create_user().name)
+
+    def test_update_existing_user_surname(self, user):
+        new_user = self.builder.create_user()
+        assert self.update_user_by_name(user.name, new_user.surname)[user.name] == new_user.surname
+
+    def test_update_non_existent_user_surname(self):
+        user = self.builder.create_user()
+        assert 'not found' in self.update_user_by_name(user.name, user.surname)
